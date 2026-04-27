@@ -1,5 +1,5 @@
 # ÚrHeat + VARIX Website
-
+.
 ## Run locally
 
 1. Install Node.js from https://nodejs.org
