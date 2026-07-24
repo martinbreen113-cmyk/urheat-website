@@ -1,266 +1,250 @@
 import React from "react";
-import { ArrowRight, CheckCircle2, Phone, Mail, Activity, ThermometerSun, Home, Building2, Wrench, BarChart3, Wifi, ClipboardCheck } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ClipboardCheck,
+  Gauge,
+  Mail,
+  Menu,
+  Phone,
+  Settings2,
+  ThermometerSun,
+  Wrench,
+  X,
+} from "lucide-react";
+
+const helpOptions = [
+  {
+    icon: ThermometerSun,
+    title: "Service my heat pump",
+    text: "Specialist servicing, checks and performance review.",
+    href: "#contact",
+  },
+  {
+    icon: Wrench,
+    title: "Fix a heating problem",
+    text: "Practical fault finding for systems that are not working properly.",
+    href: "#contact",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Get engineering advice",
+    text: "Independent design review, consultancy and technical support.",
+    href: "#contact",
+  },
+  {
+    icon: Gauge,
+    title: "Improve performance",
+    text: "Optimise controls, comfort, efficiency and running costs.",
+    href: "#contact",
+  },
+];
 
 const services = [
-  {
-    icon: <ThermometerSun className="h-7 w-7" />,
-    title: "Heat Pump Servicing",
-    text: "Specialist servicing for air-to-water and geothermal systems. Restore efficiency, reliability and correct operation.",
-  },
-  {
-    icon: <Wrench className="h-7 w-7" />,
-    title: "Heating System Support",
-    text: "Fault finding, controls troubleshooting and practical engineering support to fix underperforming systems.",
-  },
-  {
-    icon: <ClipboardCheck className="h-7 w-7" />,
-    title: "Design & Consultancy",
-    text: "Independent advice on heat pumps, emitters, hot water and system design before you spend money.",
-  },
+  ["Heat pumps", "Servicing, diagnostics, commissioning and optimisation."],
+  ["Heating systems", "Controls, emitters, pumps, hot water and system upgrades."],
+  ["Consultancy", "Independent design review and practical engineering advice."],
+  ["Building performance", "Measured performance, technical assessment and improvement plans."],
 ];
 
-const varixFeatures = [
-  {
-    icon: <BarChart3 className="h-7 w-7" />,
-    title: "Performance dashboards",
-    text: "Real data on energy, temperatures and system behaviour — not assumptions.",
-  },
-  {
-    icon: <Activity className="h-7 w-7" />,
-    title: "System behaviour analysis",
-    text: "Track ΔT, cycling, control response and real operating conditions.",
-  },
-  {
-    icon: <Home className="h-7 w-7" />,
-    title: "Comfort & IAQ",
-    text: "Temperature, humidity, CO₂ and indoor environment performance.",
-  },
-  {
-    icon: <Building2 className="h-7 w-7" />,
-    title: "Multi-site reporting",
-    text: "Monthly insights and optimisation recommendations across buildings.",
-  },
+const credentials = [
+  "Mechanical engineer",
+  "Qualified plumber",
+  "Heat pump specialist",
+  "Public-sector experience",
+  "Independent advice",
+  "Performance focused",
 ];
 
-function Button({ children, variant = "solid", className = "", href = "#contact" }) {
-  const base = "inline-flex items-center justify-center rounded-full px-6 py-3 font-bold transition";
-  const styles =
-    variant === "outline"
-      ? "border border-emerald-800/30 bg-white/60 text-emerald-900 hover:bg-white"
-      : "bg-emerald-800 text-white hover:bg-emerald-900";
+function Brand() {
   return (
-    <a href={href} className={`${base} ${styles} ${className}`}>
-      {children}
+    <a href="#top" className="brand" aria-label="ÚrHeat home">
+      <img src="/urheat-mark.jpg" alt="" className="brand-mark" />
+      <span className="brand-name">ÚrHeat</span>
     </a>
   );
 }
 
 export default function App() {
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
   return (
-    <div className="min-h-screen bg-[#f6f3ea] text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-[#f6f3ea]/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-800 text-lg font-black text-white">Ú</div>
-            <div>
-              <div className="text-xl font-black">ÚrHeat</div>
-              <div className="text-xs uppercase tracking-[0.22em] text-emerald-800">Engineering performance</div>
-            </div>
-          </div>
-          <nav className="hidden items-center gap-7 text-sm font-bold md:flex">
-            <a href="#urheat" className="hover:text-emerald-800">ÚrHeat</a>
-            <a href="#varix" className="hover:text-emerald-800">VARIX</a>
-            <a href="#packages" className="hover:text-emerald-800">Packages</a>
-            <a href="#contact" className="hover:text-emerald-800">Contact</a>
+    <div id="top" className="site-shell">
+      <header className="site-header">
+        <div className="nav-wrap">
+          <Brand />
+
+          <nav className="desktop-nav" aria-label="Main navigation">
+            <a href="#services">Services</a>
+            <a href="#why">Why ÚrHeat</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
           </nav>
-          <Button>Book a call</Button>
+
+          <a className="button button-primary desktop-cta" href="#contact">
+            Book a service
+          </a>
+
+          <button
+            className="menu-button"
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
+
+        {menuOpen && (
+          <nav className="mobile-nav" aria-label="Mobile navigation">
+            <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+            <a href="#why" onClick={() => setMenuOpen(false)}>Why ÚrHeat</a>
+            <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            <a className="button button-primary" href="#contact" onClick={() => setMenuOpen(false)}>
+              Book a service
+            </a>
+          </nav>
+        )}
       </header>
 
-      <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:py-28">
-        <div>
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-800/20 bg-white/70 px-4 py-2 text-sm font-semibold">
-            <CheckCircle2 className="h-4 w-4" /> Heat pumps • controls • monitoring
-          </div>
-
-          <h1 className="text-5xl font-black leading-tight tracking-tight md:text-7xl">
-            Heating systems that actually perform.
-          </h1>
-
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-700">
-            Design, servicing and real-world performance validation. ÚrHeat delivers the system — VARIX proves and improves it.
-          </p>
-
-          <p className="mt-4 text-xl font-black text-emerald-800">
-            We don’t measure energy — we prove performance.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Button>Get expert advice <ArrowRight className="ml-2 h-5 w-5" /></Button>
-            <Button variant="outline" href="#varix">Explore VARIX</Button>
-          </div>
-        </div>
-
-        <div className="rounded-[2rem] bg-slate-950 p-4 shadow-2xl">
-          <div className="rounded-[1.5rem] bg-gradient-to-br from-emerald-900 via-slate-900 to-slate-950 p-6 text-white">
-            <div className="mb-8 flex items-center justify-between">
-              <div>
-                <p className="text-sm text-emerald-300">Live system</p>
-                <h3 className="text-2xl font-black">VARIX Dashboard</h3>
-              </div>
-              <Wifi className="h-8 w-8 text-emerald-300" />
-            </div>
-            <div className="space-y-5">
-              {["Heat energy", "Electricity", "ΔT response", "CO₂ levels"].map((i, idx) => (
-                <div key={i}>
-                  <div className="mb-2 flex justify-between text-sm">
-                    <span>{i}</span>
-                    <span>{72 + idx * 5}%</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-white/20">
-                    <div className="h-2 rounded-full bg-emerald-300" style={{ width: `${72 + idx * 5}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-8 rounded-2xl bg-white/10 p-5">
-              <p className="text-sm text-emerald-200">Insight</p>
-              <p className="mt-1 text-lg font-bold">Lower temperatures, smarter controls and real monitoring unlock measurable savings.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="urheat" className="bg-white py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-2">
-          <div className="rounded-3xl bg-[#f6f3ea] p-8">
-            <h2 className="text-4xl font-black">ÚrHeat</h2>
-            <p className="mt-4 text-lg leading-8 text-slate-700">
-              Design, service and fix heating systems so they operate correctly in the real world.
+      <main>
+        <section className="intro section-pad">
+          <div className="intro-copy">
+            <p className="eyebrow">Heating engineering</p>
+            <h1>Heating problems, solved properly.</h1>
+            <p className="intro-text">
+              Heat pump specialists combining practical experience with mechanical engineering.
             </p>
-            <div className="mt-8 space-y-6">
-              {services.map((s) => (
-                <div key={s.title} className="flex gap-4">
-                  <div className="mt-1 text-emerald-800">{s.icon}</div>
-                  <div>
-                    <h3 className="text-lg font-black">{s.title}</h3>
-                    <p className="mt-1 leading-7 text-slate-600">{s.text}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="button-row">
+              <a className="button button-primary" href="#contact">
+                Book a service <ArrowRight size={18} />
+              </a>
+              <a className="button button-secondary" href="#services">
+                View services
+              </a>
             </div>
           </div>
 
-          <div id="varix" className="rounded-3xl bg-slate-950 p-8 text-white">
-            <h2 className="text-4xl font-black">VARIX</h2>
-            <p className="mt-4 text-lg leading-8 text-slate-300">
-              Measure, validate and optimise real building performance using data.
+          <div className="intro-panel" aria-label="ÚrHeat approach">
+            <div className="flow-line" />
+            <p>Design</p>
+            <p>Diagnose</p>
+            <p>Optimise</p>
+            <p>Support</p>
+          </div>
+        </section>
+
+        <section className="help-section section-pad" aria-labelledby="help-title">
+          <div className="section-heading compact-heading">
+            <p className="eyebrow">Start here</p>
+            <h2 id="help-title">How can we help?</h2>
+          </div>
+
+          <div className="help-grid">
+            {helpOptions.map(({ icon: Icon, title, text, href }) => (
+              <a className="help-card" href={href} key={title}>
+                <Icon size={24} />
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <ArrowRight className="card-arrow" size={18} />
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="services" className="services-section section-pad">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Our services</p>
+              <h2>Practical expertise. Clear advice.</h2>
+            </div>
+            <p>
+              From a single service visit to a full technical review, every job starts with understanding how the system should perform.
             </p>
-            <div className="mt-8 space-y-6">
-              {varixFeatures.map((s) => (
-                <div key={s.title} className="flex gap-4">
-                  <div className="mt-1 text-emerald-300">{s.icon}</div>
-                  <div>
-                    <h3 className="text-lg font-black">{s.title}</h3>
-                    <p className="mt-1 leading-7 text-slate-300">{s.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 py-20">
-        <h2 className="max-w-3xl text-4xl font-black tracking-tight md:text-5xl">
-          Most buildings don’t perform as designed.
-        </h2>
-
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-          VARIX exists to close the gap between design, installation and operation by using real-world data to validate performance and identify inefficiencies.
-        </p>
-
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
-          <div className="rounded-3xl bg-white p-8 shadow-sm">
-            <h3 className="text-2xl font-black">The problem</h3>
-            <ul className="mt-5 space-y-3 text-slate-700">
-              <li>• Systems underperform</li>
-              <li>• No visibility</li>
-              <li>• Decisions based on assumptions</li>
-              <li>• Hidden inefficiencies</li>
-            </ul>
           </div>
 
-          <div className="rounded-3xl bg-white p-8 shadow-sm">
-            <h3 className="text-2xl font-black">The solution</h3>
-            <ul className="mt-5 space-y-3 text-slate-700">
-              <li>• Monitor real performance</li>
-              <li>• Analyse behaviour over time</li>
-              <li>• Identify inefficiencies</li>
-              <li>• Deliver engineering actions</li>
-            </ul>
+          <div className="service-list">
+            {services.map(([title, text], index) => (
+              <article className="service-row" key={title}>
+                <span className="service-number">0{index + 1}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <ArrowRight size={20} />
+              </article>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="packages" className="bg-slate-900 py-20 text-white">
-        <div className="mx-auto max-w-7xl px-5">
-          <h2 className="text-4xl font-black md:text-5xl">VARIX Packages</h2>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-            Start with diagnostics, move into monitoring, and progress toward full optimisation and reporting.
-          </p>
+        <section id="why" className="why-section section-pad">
+          <div className="why-copy">
+            <p className="eyebrow light">Why ÚrHeat</p>
+            <h2>Engineering knowledge with hands-on experience.</h2>
+            <p>
+              One point of contact for practical heating expertise, independent advice and real-world system performance.
+            </p>
+          </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              ["Bronze", "Diagnostics & quick wins", "Ideal for identifying obvious issues and first-step improvements."],
-              ["Silver", "Monitoring & analysis", "Short-term monitoring, performance breakdown and recommendations."],
-              ["Gold", "Full optimisation & reporting", "Ongoing monitoring, reporting, tuning and improvement plan."],
-            ].map(([name, desc, text]) => (
-              <div key={name} className="rounded-3xl bg-white/10 p-7">
-                <h3 className="text-2xl font-black">{name}</h3>
-                <p className="mt-2 font-bold text-emerald-300">{desc}</p>
-                <p className="mt-4 leading-7 text-slate-300">{text}</p>
+          <div className="credential-grid">
+            {credentials.map((item) => (
+              <div className="credential" key={item}>
+                <span><Check size={17} /></span>
+                {item}
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="contact" className="mx-auto max-w-7xl px-5 py-20">
-        <div className="rounded-[2rem] bg-emerald-800 p-8 text-white md:p-12">
-          <h2 className="text-4xl font-black">Start with a heating performance check.</h2>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-emerald-50">
-            Whether you need a heat pump service, technical advice, a retrofit review or VARIX monitoring, ÚrHeat can help you identify, control and improve performance.
-          </p>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <a className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-black text-emerald-900" href="tel:0851327413">
-              <Phone className="h-5 w-5" /> 085 132 7413
-            </a>
-            <a className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 font-black text-white" href="mailto:info@urheat.ie">
-              <Mail className="h-5 w-5" /> info@urheat.ie
-            </a>
+        <section id="about" className="about-section section-pad">
+          <div className="about-visual">
+            <div className="about-symbol">
+              <img src="/urheat-mark.jpg" alt="ÚrHeat symbol" />
+            </div>
           </div>
-        </div>
-      </section>
 
-      <footer className="bg-slate-950 py-12 text-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-3">
-          <div>
-            <h3 className="text-2xl font-black">ÚrHeat</h3>
-            <p className="mt-3 text-slate-400">Heating performance engineering powered by real data.</p>
+          <div className="about-copy">
+            <p className="eyebrow">About ÚrHeat</p>
+            <h2>Built around better heating.</h2>
+            <p>
+              ÚrHeat was founded to bring engineering thinking and practical experience together. The aim is simple: make heating systems work reliably, efficiently and as intended.
+            </p>
+            <div className="about-points">
+              <div><Settings2 size={20} /> System-first thinking</div>
+              <div><Gauge size={20} /> Performance-led decisions</div>
+            </div>
           </div>
+        </section>
+
+        <section id="contact" className="contact-section section-pad">
           <div>
-            <p className="font-bold">Contact</p>
-            <p className="mt-3 text-slate-400">085 132 7413</p>
-            <p className="text-slate-400">info@urheat.ie</p>
+            <p className="eyebrow">Get in touch</p>
+            <h2>Ready to get your heating system working properly?</h2>
           </div>
-          <div>
-            <p className="font-bold">Services</p>
-            <p className="mt-3 text-slate-400">Heat pumps</p>
-            <p className="text-slate-400">Consultancy</p>
-            <p className="text-slate-400">VARIX monitoring</p>
+
+          <div className="contact-actions">
+            <a href="tel:0851327413" className="contact-link">
+              <Phone size={20} />
+              <span>
+                <small>Call</small>
+                085 132 7413
+              </span>
+            </a>
+            <a href="mailto:info@urheat.ie" className="contact-link">
+              <Mail size={20} />
+              <span>
+                <small>Email</small>
+                info@urheat.ie
+              </span>
+            </a>
           </div>
-        </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <Brand />
+        <p>Heating engineering, servicing and consultancy.</p>
+        <span>© {new Date().getFullYear()} ÚrHeat</span>
       </footer>
     </div>
   );
